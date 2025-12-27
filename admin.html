@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UpdateKart Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🔐 UpdateKart Admin</h1>
+</header>
+
+<div class="admin-box">
+  <input id="te" placeholder="Title (English)">
+  <textarea id="ce" placeholder="Content (English)"></textarea>
+
+  <input id="th" placeholder="Title (Hindi)">
+  <textarea id="ch" placeholder="Content (Hindi)"></textarea>
+
+  <button onclick="postUpdate()">Publish Update</button>
+</div>
+
+<script>
+function postUpdate() {
+  fetch("https://YOUR-BACKEND-URL.onrender.com/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      titleEn: document.getElementById("te").value,
+      contentEn: document.getElementById("ce").value,
+      titleHi: document.getElementById("th").value,
+      contentHi: document.getElementById("ch").value
+    })
+  })
+  .then(() => alert("✅ Update Published Successfully"))
+  .catch(() => alert("❌ Error posting update"));
+}
+</script>
+
+</body>
+</html>
