@@ -1,67 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>UpdateKart – Latest Government & Financial News</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <title>UpdateKart – Latest News</title>
+  <meta name="description" content="PAN Aadhaar RBI Government latest updates">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ================= NAVBAR ================= -->
-  <header class="navbar">
-    <div class="logo">📰 UpdateKart</div>
+<header class="navbar">
+  <h1>📰 UpdateKart</h1>
+  <nav>
+    <a onclick="loadPosts('All')">All</a>
+    <a onclick="loadPosts('PAN')">PAN</a>
+    <a onclick="loadPosts('Aadhaar')">Aadhaar</a>
+    <a onclick="loadPosts('RBI')">RBI</a>
+    <a onclick="loadPosts('Govt')">Govt</a>
+  </nav>
+  <span onclick="toggleDark()">🌙</span>
+</header>
 
-    <nav class="nav-links">
-      <a href="#" onclick="filterCategory('All')">All</a>
-      <a href="#" onclick="filterCategory('PAN')">PAN</a>
-      <a href="#" onclick="filterCategory('Aadhaar')">Aadhaar</a>
-      <a href="#" onclick="filterCategory('RBI')">RBI</a>
-      <a href="#" onclick="filterCategory('Govt')">Govt</a>
-    </nav>
+<input id="search" placeholder="Search..." onkeyup="search()">
 
-    <span class="dark-toggle" onclick="toggleDarkMode()">🌙</span>
-  </header>
+<section class="posts" id="posts"></section>
 
-  <!-- ================= SEARCH ================= -->
-  <div class="search-box">
-    <input
-      type="text"
-      id="searchInput"
-      placeholder="Search latest news..."
-      onkeyup="searchPosts()"
-    />
-  </div>
-
-  <!-- ================= FEATURED SLIDER ================= -->
-  <section class="slider">
-    <div class="slides">
-      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?government');">
-        <h2>PAN–Aadhaar Linking Deadline 2025</h2>
-      </div>
-      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?banking');">
-        <h2>RBI New Banking Rules Explained</h2>
-      </div>
-      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?india');">
-        <h2>Latest Government Announcements</h2>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= POSTS ================= -->
-  <main class="container">
-    <div class="posts-grid" id="posts"></div>
-  </main>
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    © 2025 UpdateKart | Government & Financial News
-  </footer>
-
-  <!-- ================= SCRIPT ================= -->
-  <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
