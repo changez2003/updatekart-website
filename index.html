@@ -1,28 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>UpdateKart – Latest News</title>
-  <meta name="description" content="PAN Aadhaar RBI Government latest updates">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UpdateKart – Government & Financial News</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Latest PAN–Aadhaar, RBI, Government & Financial News Updates" />
+  <meta name="keywords" content="PAN Aadhaar, RBI News, Government Updates, Financial News" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
+<!-- ================= HEADER / NAVBAR ================= -->
 <header class="navbar">
-  <h1>📰 UpdateKart</h1>
-  <nav>
-    <a onclick="loadPosts('All')">All</a>
-    <a onclick="loadPosts('PAN')">PAN</a>
-    <a onclick="loadPosts('Aadhaar')">Aadhaar</a>
-    <a onclick="loadPosts('RBI')">RBI</a>
-    <a onclick="loadPosts('Govt')">Govt</a>
+  <div class="logo">📰 UpdateKart</div>
+
+  <nav class="nav-links">
+    <a href="#" onclick="filterCategory('All')">All</a>
+    <a href="#" onclick="filterCategory('PAN')">PAN</a>
+    <a href="#" onclick="filterCategory('Aadhaar')">Aadhaar</a>
+    <a href="#" onclick="filterCategory('RBI')">RBI</a>
+    <a href="#" onclick="filterCategory('Govt')">Govt</a>
   </nav>
-  <span onclick="toggleDark()">🌙</span>
+
+  <span class="dark-toggle" onclick="toggleDarkMode()">🌙</span>
 </header>
 
-<input id="search" placeholder="Search..." onkeyup="search()">
+<!-- ================= SEARCH ================= -->
+<div class="search-box">
+  <input type="text" id="searchInput" placeholder="Search latest news..." onkeyup="searchPosts()" />
+</div>
 
-<section class="posts" id="posts"></section>
+<!-- ================= FEATURED SLIDER ================= -->
+<section class="slider">
+  <div class="slides" id="featuredSlides">
+    <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?india,government')">
+      <h2>PAN–Aadhaar Linking Deadline 2025</h2>
+    </div>
+    <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?banking,india')">
+      <h2>RBI Service Charges Revised</h2>
+    </div>
+    <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?finance,news')">
+      <h2>Latest Financial & Government Updates</h2>
+    </div>
+  </div>
+</section>
 
-<script src="script.js"></script>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <h1>Latest Trending Updates</h1>
+  <p>Stay informed with verified government & financial news</p>
+</section>
+
+<!-- ================= POSTS ================= -->
+<main class="container">
+  <div id="posts" class="posts-grid"></div>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  © 2025 UpdateKart | Government & Financial News
+</footer>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+/* ================= CONFIG ================= */
+const API_URL = "https://updatekart-website.onrender.com";
+
+/* ================= DARK MODE ================= */
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+}
+
+if (localStorage.getItem("darkMode") === "true") {
+  document.body.classList.add("dark");
+}
+
+/* ================= LOAD POSTS ================= */
+let allPosts = [];
+
+async function loadPosts() {
+  try {
+    const res = await fetch(`${API_URL}/posts`);
+    allPosts = await res.json();
+    renderPosts(allPosts);
+  } catch (err) {
+    document.getElementById("posts").innerHTML = "<p>Error loading posts</p>";
+  }
+}
+
+function renderPosts(posts) {
+  const container = document.getElementById("posts");
+  container.innerHTML = "";
+
+  posts.forEach(post => {
+    const card = document.createElement("div");
+    card.className = "post-card";
+
+    card.innerHTML = `
+      <span class="badge">${post.category || "News"}</span>
+      <h3>${post.titleEn || ""}</h3>
+      <p>${post.contentEn || ""}</p>
+      <hr>
+      <h4>${post.titleHi || ""}</h4>
+      <p>${post.contentHi || ""}</p>
+      <div class="views">🔥 ${post.views || 0} views</div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+/* ================= SEARCH ================= */
+function searchPosts() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = allPosts.filter(p =>
+    (p.titleEn || "").toLowerCase().includes(q) ||
+    (p.contentEn || "").toLowerCase().includes(q)
+  );
+  renderPosts(filtered);
+}
+
+/* ================= CATEGORY FILTER ================= */
+function filterCategory(cat) {
+  if (cat === "All") {
+    renderPosts(allPosts);
+  } else {
+    const filtered = allPosts.filter(p => p.category === cat);
+    renderPosts(filtered);
+  }
+}
+
+/* ================= INIT ================= */
+loadPosts();
+</script>
+
 </body>
 </html>
