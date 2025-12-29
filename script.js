@@ -1,35 +1,61 @@
-const API_URL = "https://updatekart-website.onrender.com";
+const API = "https://updatekart-website.onrender.com";
 
-async function loadPosts() {
-  try {
-    const res = await fetch(`${API_URL}/posts`);
-    const posts = await res.json();
+let allPosts = [];
 
-    const container = document.getElementById("posts");
-    container.innerHTML = "";
+fetch(`${API}/posts`)
+  .then(res => res.json())
+  .then(data => {
+    allPosts = data.reverse();
+    renderPosts(allPosts);
+    renderSlider(allPosts.filter(p => p.featured));
+  });
 
-    if (posts.length === 0) {
-      container.innerHTML = "<p>No updates yet.</p>";
-      return;
-    }
+function renderPosts(posts) {
+  const container = document.getElementById("posts");
+  container.innerHTML = "";
 
-    posts.forEach(post => {
-      const div = document.createElement("div");
-      div.className = "post-card";
-
-      div.innerHTML = `
-        <h3>${post.titleEn || ""}</h3>
-        <p>${post.contentEn || ""}</p>
+  posts.forEach(p => {
+    container.innerHTML += `
+      <div class="post-card">
+        ${p.image ? `<img src="${p.image}" />` : ""}
+        <h3>${p.titleEn}</h3>
+        <p>${p.contentEn}</p>
         <hr>
-        <h4>${post.titleHi || ""}</h4>
-        <p>${post.contentHi || ""}</p>
-      `;
-
-      container.appendChild(div);
-    });
-  } catch (err) {
-    console.error(err);
-  }
+        <h4>${p.titleHi}</h4>
+        <p>${p.contentHi}</p>
+        <span class="badge">${p.category}</span>
+        ${p.views > 50 ? `<span class="trending">🔥 Trending</span>` : ""}
+      </div>
+    `;
+  });
 }
 
-document.addEventListener("DOMContentLoaded", loadPosts);
+function renderSlider(posts) {
+  const slider = document.getElementById("featuredSlides");
+  slider.innerHTML = "";
+
+  posts.forEach(p => {
+    slider.innerHTML += `
+      <div class="slide" style="background-image:url('${p.image || ""}')">
+        <h2>${p.titleEn}</h2>
+      </div>
+    `;
+  });
+}
+
+/* SEARCH */
+document.getElementById("searchInput").addEventListener("input", e => {
+  const q = e.target.value.toLowerCase();
+  renderPosts(allPosts.filter(p => p.titleEn.toLowerCase().includes(q)));
+});
+
+/* CATEGORY */
+function filterCategory(cat) {
+  if (cat === "All") return renderPosts(allPosts);
+  renderPosts(allPosts.filter(p => p.category === cat));
+}
+
+/* DARK MODE */
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
