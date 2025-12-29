@@ -1,3 +1,7 @@
+// Dark mode toggle
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
 const API = "https://updatekart-website.onrender.com";
 
 let allPosts = [];
@@ -59,3 +63,4 @@ function filterCategory(cat) {
 function toggleDark() {
   document.body.classList.toggle("dark");
 }
+
