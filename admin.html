@@ -1,41 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>UpdateKart Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-  <h1>🔐 UpdateKart Admin</h1>
-</header>
+  <header>
+    <h1>🛠 UpdateKart Admin</h1>
+    <p>Publish News Updates</p>
+  </header>
 
-<div class="admin-box">
-  <input id="te" placeholder="Title (English)">
-  <textarea id="ce" placeholder="Content (English)"></textarea>
+  <main>
+    <div class="admin-box">
 
-  <input id="th" placeholder="Title (Hindi)">
-  <textarea id="ch" placeholder="Content (Hindi)"></textarea>
+      <h3>English Content</h3>
+      <input id="te" type="text" placeholder="Title (English)" required>
+      <textarea id="ce" placeholder="Content (English)" required></textarea>
 
-  <button onclick="postUpdate()">Publish Update</button>
-</div>
+      <h3>Hindi Content</h3>
+      <input id="th" type="text" placeholder="Title (Hindi)">
+      <textarea id="ch" placeholder="Content (Hindi)"></textarea>
 
-<script>
-function postUpdate() {
-  fetch("https://YOUR-BACKEND-URL.onrender.com/add", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      titleEn: document.getElementById("te").value,
-      contentEn: document.getElementById("ce").value,
-      titleHi: document.getElementById("th").value,
-      contentHi: document.getElementById("ch").value
-    })
-  })
-  .then(() => alert("✅ Update Published Successfully"))
-  .catch(() => alert("❌ Error posting update"));
-}
-</script>
+      <button onclick="addPost()">Publish Update</button>
 
+    </div>
+  </main>
+
+  <footer>
+    <p>Admin Panel – UpdateKart</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
 </body>
 </html>
