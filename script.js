@@ -1,32 +1,21 @@
-console.log("UpdateKart JS loaded");
-
-/* ================= BACKEND URL ================= */
 const API_URL = "https://updatekart-website.onrender.com";
 
-/* ================= LOAD POSTS ON HOMEPAGE ================= */
 async function loadPosts() {
   try {
     const res = await fetch(`${API_URL}/posts`);
-
-    if (!res.ok) {
-      throw new Error("Failed to fetch posts");
-    }
-
     const posts = await res.json();
 
     const container = document.getElementById("posts");
-    if (!container) return;
-
     container.innerHTML = "";
 
     if (posts.length === 0) {
-      container.innerHTML = "<p>No updates available.</p>";
+      container.innerHTML = "<p>No updates yet.</p>";
       return;
     }
 
-    posts.forEach((post) => {
+    posts.forEach(post => {
       const div = document.createElement("div");
-      div.className = "post";
+      div.className = "post-card";
 
       div.innerHTML = `
         <h3>${post.titleEn || ""}</h3>
@@ -39,53 +28,8 @@ async function loadPosts() {
       container.appendChild(div);
     });
   } catch (err) {
-    console.error("Error loading posts:", err);
+    console.error(err);
   }
 }
 
-/* ================= ADD POST (ADMIN PANEL) ================= */
-async function addPost() {
-  const titleEn = document.getElementById("te")?.value;
-  const contentEn = document.getElementById("ce")?.value;
-  const titleHi = document.getElementById("th")?.value;
-  const contentHi = document.getElementById("ch")?.value;
-
-  if (!titleEn || !contentEn) {
-    alert("English title and content are required");
-    return;
-  }
-
-  try {
-    const res = await fetch(`${API_URL}/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        titleEn,
-        contentEn,
-        titleHi,
-        contentHi,
-      }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Failed to add post");
-    }
-
-    alert("Post added successfully");
-
-    // Clear inputs
-    document.getElementById("te").value = "";
-    document.getElementById("ce").value = "";
-    document.getElementById("th").value = "";
-    document.getElementById("ch").value = "";
-
-  } catch (err) {
-    console.error("Error adding post:", err);
-    alert("Error posting update");
-  }
-}
-
-/* ================= AUTO LOAD POSTS ================= */
 document.addEventListener("DOMContentLoaded", loadPosts);
