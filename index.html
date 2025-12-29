@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>UpdateKart - Trending Government & PAN–Aadhaar Updates</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>UpdateKart – Latest Government & PAN-Aadhaar News</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 <header class="navbar">
   <div class="navbar-logo">📰 UpdateKart</div>
+
   <nav class="navbar-links">
-    <a href="#">Home</a>
-    <a href="#category-pan">PAN–Aadhaar</a>
-    <a href="#category-govt">Government</a>
-    <a href="#category-rbi">RBI</a>
-    <a href="admin.html">Admin</a>
+    <a href="#" onclick="filterCategory('All')">All</a>
+    <a href="#" onclick="filterCategory('PAN')">PAN</a>
+    <a href="#" onclick="filterCategory('Aadhaar')">Aadhaar</a>
+    <a href="#" onclick="filterCategory('RBI')">RBI</a>
+    <a href="#" onclick="filterCategory('Govt')">Govt</a>
   </nav>
+
+  <button class="dark-btn" onclick="toggleDark()">🌙</button>
 </header>
-  <!-- FEATURED SLIDER -->
+
+<!-- SEARCH -->
+<section class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search latest news..." />
+</section>
+
+<!-- FEATURED SLIDER -->
 <section class="slider">
   <div class="slides" id="featuredSlides"></div>
 </section>
 
-
-<!-- HERO / FEATURED SECTION -->
-<section class="hero">
-  <h1>Latest Trending Updates</h1>
-  <p>Stay informed with the most recent updates on Government rules, financial news, PAN–Aadhaar deadlines & more.</p>
-</section>
-
-<!-- POSTS SECTION -->
+<!-- POSTS -->
 <main class="container">
-  <h2 class="section-title">All Updates</h2>
   <div id="posts" class="posts-grid"></div>
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
-  <p>© 2025 UpdateKart. All rights reserved.</p>
+  © 2025 UpdateKart | Government & Financial News
 </footer>
 
 <script src="script.js"></script>
 </body>
 </html>
-
