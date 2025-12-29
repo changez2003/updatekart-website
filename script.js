@@ -1,14 +1,17 @@
 console.log("UpdateKart JS loaded");
 
-/* BACKEND URL (LOCAL) */
+/* ================= BACKEND URL ================= */
 const API_URL = "https://updatekart-website.onrender.com";
 
-/* =========================
-   LOAD POSTS ON HOMEPAGE
-   ========================= */
+/* ================= LOAD POSTS ON HOMEPAGE ================= */
 async function loadPosts() {
   try {
     const res = await fetch(`${API_URL}/posts`);
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch posts");
+    }
+
     const posts = await res.json();
 
     const container = document.getElementById("posts");
@@ -16,9 +19,15 @@ async function loadPosts() {
 
     container.innerHTML = "";
 
-    posts.reverse().forEach(post => {
+    if (posts.length === 0) {
+      container.innerHTML = "<p>No updates available.</p>";
+      return;
+    }
+
+    posts.forEach((post) => {
       const div = document.createElement("div");
       div.className = "post";
+
       div.innerHTML = `
         <h3>${post.titleEn || ""}</h3>
         <p>${post.contentEn || ""}</p>
@@ -26,24 +35,23 @@ async function loadPosts() {
         <h4>${post.titleHi || ""}</h4>
         <p>${post.contentHi || ""}</p>
       `;
+
       container.appendChild(div);
     });
   } catch (err) {
-    console.error("Error loading posts", err);
+    console.error("Error loading posts:", err);
   }
 }
 
-/* =========================
-   ADD POST (ADMIN PAGE)
-   ========================= */
+/* ================= ADD POST (ADMIN PANEL) ================= */
 async function addPost() {
-  const titleEn = document.getElementById("te").value;
-  const contentEn = document.getElementById("ce").value;
-  const titleHi = document.getElementById("th").value;
-  const contentHi = document.getElementById("ch").value;
+  const titleEn = document.getElementById("te")?.value;
+  const contentEn = document.getElementById("ce")?.value;
+  const titleHi = document.getElementById("th")?.value;
+  const contentHi = document.getElementById("ch")?.value;
 
   if (!titleEn || !contentEn) {
-    alert("Please enter English title and content");
+    alert("English title and content are required");
     return;
   }
 
@@ -51,31 +59,33 @@ async function addPost() {
     const res = await fetch(`${API_URL}/add`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         titleEn,
         contentEn,
         titleHi,
-        contentHi
-      })
+        contentHi,
+      }),
     });
 
-    if (res.ok) {
-      alert("Post added successfully");
-      document.getElementById("te").value = "";
-      document.getElementById("ce").value = "";
-      document.getElementById("th").value = "";
-      document.getElementById("ch").value = "";
-    } else {
-      alert("Failed to add post");
+    if (!res.ok) {
+      throw new Error("Failed to add post");
     }
+
+    alert("Post added successfully");
+
+    // Clear inputs
+    document.getElementById("te").value = "";
+    document.getElementById("ce").value = "";
+    document.getElementById("th").value = "";
+    document.getElementById("ch").value = "";
+
   } catch (err) {
-    console.error("Error adding post", err);
+    console.error("Error adding post:", err);
+    alert("Error posting update");
   }
 }
 
-/* =========================
-   AUTO LOAD POSTS
-   ========================= */
+/* ================= AUTO LOAD POSTS ================= */
 document.addEventListener("DOMContentLoaded", loadPosts);
