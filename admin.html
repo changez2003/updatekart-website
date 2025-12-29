@@ -1,39 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>UpdateKart Admin Panel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>Admin – UpdateKart</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <header>
-    <h1>🛠 UpdateKart Admin</h1>
-    <p>Publish News Updates</p>
-  </header>
+<div class="admin-container">
+  <h2>Publish News</h2>
 
-  <main>
-    <div class="admin-box">
+  <input id="titleEn" placeholder="Title (English)" />
+  <textarea id="contentEn" placeholder="Content (English)"></textarea>
 
-      <h3>English Content</h3>
-      <input id="te" type="text" placeholder="Title (English)" required>
-      <textarea id="ce" placeholder="Content (English)" required></textarea>
+  <input id="titleHi" placeholder="Title (Hindi)" />
+  <textarea id="contentHi" placeholder="Content (Hindi)"></textarea>
 
-      <h3>Hindi Content</h3>
-      <input id="th" type="text" placeholder="Title (Hindi)">
-      <textarea id="ch" placeholder="Content (Hindi)"></textarea>
+  <input id="image" placeholder="Image URL (optional)" />
 
-      <button onclick="addPost()">Publish Update</button>
+  <select id="category">
+    <option>PAN</option>
+    <option>Aadhaar</option>
+    <option>RBI</option>
+    <option>Govt</option>
+  </select>
 
-    </div>
-  </main>
+  <label>
+    <input type="checkbox" id="featured" /> Featured
+  </label>
 
-  <footer>
-    <p>Admin Panel – UpdateKart</p>
-  </footer>
+  <button onclick="addPost()">Publish</button>
+</div>
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>
