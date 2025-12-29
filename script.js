@@ -1,12 +1,14 @@
 console.log("UpdateKart JS loaded");
 
-// CHANGE THIS LATER to your Render backend URL
-const API_URL = "http://localhost:5000/api/posts";
+/* BACKEND URL (LOCAL) */
+const API_URL = "https://updatekart-website.onrender.com";
 
-// Load posts on homepage
+/* =========================
+   LOAD POSTS ON HOMEPAGE
+   ========================= */
 async function loadPosts() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(`${API_URL}/posts`);
     const posts = await res.json();
 
     const container = document.getElementById("posts");
@@ -18,9 +20,11 @@ async function loadPosts() {
       const div = document.createElement("div");
       div.className = "post";
       div.innerHTML = `
-        <h3>${post.title}</h3>
-        <small>${new Date(post.createdAt).toLocaleDateString()}</small>
-        <p>${post.content}</p>
+        <h3>${post.titleEn || ""}</h3>
+        <p>${post.contentEn || ""}</p>
+        <hr>
+        <h4>${post.titleHi || ""}</h4>
+        <p>${post.contentHi || ""}</p>
       `;
       container.appendChild(div);
     });
@@ -29,31 +33,40 @@ async function loadPosts() {
   }
 }
 
-// Admin form submit
-async function addPost(e) {
-  e.preventDefault();
+/* =========================
+   ADD POST (ADMIN PAGE)
+   ========================= */
+async function addPost() {
+  const titleEn = document.getElementById("te").value;
+  const contentEn = document.getElementById("ce").value;
+  const titleHi = document.getElementById("th").value;
+  const contentHi = document.getElementById("ch").value;
 
-  const title = document.getElementById("title").value;
-  const content = document.getElementById("content").value;
-  const password = document.getElementById("password").value;
-
-  if (password !== "admin123") {
-    alert("Wrong admin password");
+  if (!titleEn || !contentEn) {
+    alert("Please enter English title and content");
     return;
   }
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(`${API_URL}/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title, content })
+      body: JSON.stringify({
+        titleEn,
+        contentEn,
+        titleHi,
+        contentHi
+      })
     });
 
     if (res.ok) {
       alert("Post added successfully");
-      document.getElementById("postForm").reset();
+      document.getElementById("te").value = "";
+      document.getElementById("ce").value = "";
+      document.getElementById("th").value = "";
+      document.getElementById("ch").value = "";
     } else {
       alert("Failed to add post");
     }
@@ -62,5 +75,7 @@ async function addPost(e) {
   }
 }
 
-// Auto-load posts on homepage
+/* =========================
+   AUTO LOAD POSTS
+   ========================= */
 document.addEventListener("DOMContentLoaded", loadPosts);
