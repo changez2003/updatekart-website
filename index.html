@@ -2,45 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>UpdateKart – Latest Government & PAN-Aadhaar News</title>
+  <title>UpdateKart – Latest Government & Financial News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<!-- NAVBAR -->
-<header class="navbar">
-  <div class="navbar-logo">📰 UpdateKart</div>
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar">
+    <div class="logo">📰 UpdateKart</div>
 
-  <nav class="navbar-links">
-    <a href="#" onclick="filterCategory('All')">All</a>
-    <a href="#" onclick="filterCategory('PAN')">PAN</a>
-    <a href="#" onclick="filterCategory('Aadhaar')">Aadhaar</a>
-    <a href="#" onclick="filterCategory('RBI')">RBI</a>
-    <a href="#" onclick="filterCategory('Govt')">Govt</a>
-  </nav>
+    <nav class="nav-links">
+      <a href="#" onclick="filterCategory('All')">All</a>
+      <a href="#" onclick="filterCategory('PAN')">PAN</a>
+      <a href="#" onclick="filterCategory('Aadhaar')">Aadhaar</a>
+      <a href="#" onclick="filterCategory('RBI')">RBI</a>
+      <a href="#" onclick="filterCategory('Govt')">Govt</a>
+    </nav>
 
-  <button class="dark-btn" onclick="toggleDark()">🌙</button>
-</header>
+    <span class="dark-toggle" onclick="toggleDarkMode()">🌙</span>
+  </header>
 
-<!-- SEARCH -->
-<section class="search-bar">
-  <input type="text" id="searchInput" placeholder="Search latest news..." />
-</section>
+  <!-- ================= SEARCH ================= -->
+  <div class="search-box">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search latest news..."
+      onkeyup="searchPosts()"
+    />
+  </div>
 
-<!-- FEATURED SLIDER -->
-<section class="slider">
-  <div class="slides" id="featuredSlides"></div>
-</section>
+  <!-- ================= FEATURED SLIDER ================= -->
+  <section class="slider">
+    <div class="slides">
+      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?government');">
+        <h2>PAN–Aadhaar Linking Deadline 2025</h2>
+      </div>
+      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?banking');">
+        <h2>RBI New Banking Rules Explained</h2>
+      </div>
+      <div class="slide" style="background-image:url('https://source.unsplash.com/1600x600/?india');">
+        <h2>Latest Government Announcements</h2>
+      </div>
+    </div>
+  </section>
 
-<!-- POSTS -->
-<main class="container">
-  <div id="posts" class="posts-grid"></div>
-</main>
+  <!-- ================= POSTS ================= -->
+  <main class="container">
+    <div class="posts-grid" id="posts"></div>
+  </main>
 
-<footer class="site-footer">
-  © 2025 UpdateKart | Government & Financial News
-</footer>
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    © 2025 UpdateKart | Government & Financial News
+  </footer>
 
-<script src="script.js"></script>
+  <!-- ================= SCRIPT ================= -->
+  <script src="script.js"></script>
+
 </body>
 </html>
