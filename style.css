@@ -1,22 +1,32 @@
-/* ===== GLOBAL RESET ===== */
+/* ===============================
+   GLOBAL RESET
+================================ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
-/* ===== NAVBAR ===== */
+body {
+  background: #f4f6f9;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
 .navbar {
   background: #1a73e8;
   color: #fff;
   display: flex;
   justify-content: space-between;
-  padding: 14px 24px;
   align-items: center;
+  padding: 14px 24px;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 1000;
 }
 
 .navbar-logo {
@@ -35,16 +45,56 @@
   text-decoration: underline;
 }
 
-/* ===== HERO BANNER ===== */
+/* ===============================
+   FEATURED SLIDER
+================================ */
+.slider {
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.slides {
+  display: flex;
+  animation: slide 12s infinite;
+}
+
+.slide {
+  min-width: 100%;
+  padding: 90px 20px;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide h2 {
+  font-size: 30px;
+  max-width: 850px;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.65);
+  padding: 16px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  33% { transform: translateX(-100%); }
+  66% { transform: translateX(-200%); }
+}
+
+/* ===============================
+   HERO SECTION
+================================ */
 .hero {
   background: #e8f0fe;
-  padding: 32px 24px;
+  padding: 36px 24px;
   text-align: center;
   border-bottom: 2px solid #d0d7de;
 }
 
 .hero h1 {
-  font-size: 28px;
+  font-size: 30px;
   margin-bottom: 8px;
   color: #1a73e8;
 }
@@ -54,69 +104,132 @@
   color: #444;
 }
 
-/* ===== CONTAINER ===== */
+/* ===============================
+   MAIN CONTAINER
+================================ */
 .container {
   width: 90%;
-  max-width: 1100px;
-  margin: 24px auto;
+  max-width: 1150px;
+  margin: 32px auto;
 }
 
-/* ===== POSTS GRID ===== */
+/* ===============================
+   POSTS GRID
+================================ */
 .posts-grid {
   display: grid;
-  gap: 20px;
+  gap: 22px;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 .post-card {
   background: #fff;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  padding: 18px;
-  transition: 0.3s;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
 .post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
 }
 
 .post-card h3 {
   color: #1a73e8;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-size: 18px;
 }
 
 .post-card p {
   color: #333;
   margin-bottom: 12px;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .post-card hr {
-  margin: 10px 0;
+  margin: 12px 0;
   border: none;
   border-top: 1px solid #eee;
 }
 
-/* ===== FOOTER ===== */
+/* ===============================
+   ADMIN FORM (ADMIN PAGE)
+================================ */
+.admin-container {
+  width: 90%;
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.admin-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1a73e8;
+}
+
+.admin-container input,
+.admin-container textarea,
+.admin-container button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.admin-container textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.admin-container button {
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-container button:hover {
+  background: #1558b0;
+}
+
+/* ===============================
+   FOOTER
+================================ */
 .site-footer {
   background: #1a73e8;
   color: #fff;
-  padding: 14px;
+  padding: 16px;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 50px;
   font-size: 14px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 600px) {
+/* ===============================
+   RESPONSIVE DESIGN
+================================ */
+@media (max-width: 768px) {
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .navbar-links {
-    margin-top: 8px;
+    margin-top: 10px;
+  }
+
+  .slide h2 {
+    font-size: 22px;
+  }
+
+  .hero h1 {
+    font-size: 24px;
   }
 }
