@@ -1,36 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin – UpdateKart</title>
+  <meta charset="UTF-8" />
+  <title>UpdateKart Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      background: #f4f6f8;
+      font-family: Arial, sans-serif;
+    }
+
+    .admin-container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 6px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #1a73e8;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 100px;
+    }
+
+    .inline {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .inline label {
+      margin: 0;
+      font-weight: normal;
+    }
+
+    button {
+      background: #1a73e8;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #155ab6;
+    }
+
+    .note {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="admin-container">
-  <h2>Publish News</h2>
+  <div class="admin-container">
+    <h1>📰 UpdateKart Admin Panel</h1>
 
-  <input id="titleEn" placeholder="Title (English)" />
-  <textarea id="contentEn" placeholder="Content (English)"></textarea>
+    <!-- ENGLISH -->
+    <div class="form-group">
+      <label>Title (English)</label>
+      <input type="text" id="titleEn" placeholder="Enter English title" />
+    </div>
 
-  <input id="titleHi" placeholder="Title (Hindi)" />
-  <textarea id="contentHi" placeholder="Content (Hindi)"></textarea>
+    <div class="form-group">
+      <label>Content (English)</label>
+      <textarea id="contentEn" placeholder="Enter English content"></textarea>
+    </div>
 
-  <input id="image" placeholder="Image URL (optional)" />
+    <!-- HINDI -->
+    <div class="form-group">
+      <label>Title (Hindi)</label>
+      <input type="text" id="titleHi" placeholder="हिंदी शीर्षक" />
+    </div>
 
-  <select id="category">
-    <option>PAN</option>
-    <option>Aadhaar</option>
-    <option>RBI</option>
-    <option>Govt</option>
-  </select>
+    <div class="form-group">
+      <label>Content (Hindi)</label>
+      <textarea id="contentHi" placeholder="हिंदी सामग्री"></textarea>
+    </div>
 
-  <label>
-    <input type="checkbox" id="featured" /> Featured
-  </label>
+    <!-- CATEGORY -->
+    <div class="form-group">
+      <label>Category</label>
+      <select id="category">
+        <option value="Government">Government</option>
+        <option value="PAN-Aadhaar">PAN–Aadhaar</option>
+        <option value="Banking">Banking</option>
+        <option value="RBI">RBI</option>
+        <option value="Finance">Finance</option>
+      </select>
+    </div>
 
-  <button onclick="addPost()">Publish</button>
-</div>
+    <!-- IMAGE -->
+    <div class="form-group">
+      <label>Post Image URL</label>
+      <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg" />
+    </div>
 
-<script src="admin.js"></script>
+    <!-- TRENDING -->
+    <div class="form-group inline">
+      <input type="checkbox" id="isTrending" />
+      <label for="isTrending">Mark as Trending 🔥</label>
+    </div>
+
+    <!-- SUBMIT -->
+    <button onclick="addPost()">🚀 Publish Update</button>
+
+    <div class="note">
+      Backend: Render | Frontend: Netlify | DB: MongoDB Atlas
+    </div>
+  </div>
+
+  <!-- ADMIN LOGIC -->
+  <script src="admin.js"></script>
+
 </body>
 </html>
